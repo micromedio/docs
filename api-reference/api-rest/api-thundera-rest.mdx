@@ -1,0 +1,210 @@
+---
+title: 'API Thundera'
+description: 'API REST do Thundera.'
+---
+
+<Note>
+  Versão do documento: 1.0.7 <br />
+  Versão da API: 1.2.0 <br />
+  Data: 02/07/2024
+</Note>
+
+# Bem vindo
+
+Esta é a documentação da API Rest do sistema Thundera. Com ela você poderá enviar e receber dados de exames e laudos e tratar da forma que desejar em seu sistema.
+
+# Authenticação
+
+Para a utilização da API será necessário ter em mãos os seguintes Headers:
+
+
+| Nome                      | Valor                                 |
+| --------------------------|-------------------------------------- |
+| base-url                  | https://thundera.com.br/api/          |
+| X-MICROMED-API-KEY        | UUID do serviço                       |
+| X-MICROMED-API-SECRET     | Chave de API                          |
+| RemoteUUID                | UUID do ponto remoto                  |
+| examStatus                | Nomes dos tipos de exames             |
+| initialDate               | Data inicial da pesquisa              |
+| endDate                   | Data final da pesquisa                |
+| patientName               | Nome ou trecho do nome do paciente    |
+| centralUUID               | UUID da central                       |
+
+Ao lado é possível visualizar os Endpoints da API.
+
+
+# Métodos
+
+## POST/exams
+
+Este método lista os exames filtrados.
+
+Request
+
+Headers
+
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/json                              | Sim         |
+| base-url                  | https://thundera.com.br/api/                  | Sim         |
+| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
+| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+
+
+Body raw(json)
+
+| Campo                     | Descrição                                           | Obrigatório |
+| --------------------------|-----------------------------------------------------|-------------|
+| examTypes                 | Ecg Imagem, Mapa Hyperview, Ecg Wincardio           | Não         |
+| examStatus                | DISPONIVEL_PARA_LAUDO, EM_ANALISE, LAUDO_DISPONIVEL | Não         |
+| initialDate               | 2024-06-20T12:25:46-03:00                           | Sim         |
+| endDate                   | 2024-07-01T22:25:46-03:00                           | Sim         |
+| patientName               | NOME DO PACIENTE                                    | Não         |
+| centralUUID               | 55ff2a83-111e-3010-b046-420c8a7fb106                | Não         |
+
+
+Exemplo
+
+```curl cURL
+curl --location --request POST 'https://base-url/exams' \
+  --header 'X-MICROMED-API-KEY: <API Key>' \
+  --header 'X-MICROMED-API-SECRET: <API Secret>' \
+  --data-raw '{
+    "remoteUUID": "dfdbd851-9d6e-4f6a-aa47-cfefd5571ecr7",
+    "examTypes": ["Ecg Wincardio"],
+    "examStatus": ["LAUDO_REMOTO"],
+    "initialDate": "2021-08-01T15:25:46-03:00",
+    "endDate": "2021-08-10T15:25:46-03:00",
+    "patientName": "Paciente 4",
+    "centralUUID": "4de569e2-6d05-4d73-a724-0c1bf6666286" }'
+```
+
+Responses
+Headers
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/json                              | Sim         |
+
+
+#### 200 Success <br />
+Body raw(json)
+
+| Campo                     | Descrição                                           | Obrigatório |
+| --------------------------|-----------------------------------------------------|-------------|
+| examUUID                  | UUID do exame                                       | Sim         |
+| remoteUUID                | UUID do ponto remoto                                | Sim         |
+| examType                  | Nome do tipo de exame                               | Sim         |
+| examStatus                | Status do exame                                     | Sim         |
+| studyDateTime             | Data em que o exame foi feito                       | Sim         |
+| studyReceivedDateTime     | Data em que o exame foi recebido                    | Sim         |
+| studyFileName             | Nome do arquivo do exame                            | Sim         |
+| patientName               | Nome do paciente do exame                           | Sim         |
+| reportReleaseDateTime     | Data em que o laudo foi liberado                    | Sim         |
+| reportFileName            | Nome do arquivo do laudo                            | Sim         |
+| operatorEmail             | E-mail do operador.                                 | Não         |
+| repetition                | Repetição                                           | Não         |
+| reason                    | Motivo pelo qual foi solicitado repetição do exame  | Sim         |
+| patient                   | Paciente                                            | Sim         |
+| name                      | Nome do paciente                                    | Sim         |
+| gender                    | Gênero do paciente                                  | Não         |
+| birthDate                 | Data de nascimento do paciente                      | Não         |
+| height                    | Altura do paciente em centímetros                   | Não         |
+| weight                    | Peso do paciente em quilogramas                     | Não         |
+| cpf                       | CPF do paciente sem máscara (11 dígitos)            | Não         |
+| rg                        | RG do paciente sem máscara (9 dígitos)              | Não         |
+
+
+
+``` Exemplo response
+[
+  {
+    "examUUID": "71156ce2-de23-4f1b-bf7e-aa1fdf45213e",
+    "examStatus": "EM_ANALISE",
+    "ExamType": "ECG",
+    "remoteUUID": "dfdbd851-9d6e-4f6b-aa47-cfefd5571ec7",
+    "patientName": "Paciente 4",
+    "studyDateTime": "2021-05-28T15:48:00.000+00:00",
+    "studyReceivedDateTime": "2021-05-31T19:10:14.560+00:00",
+    "studyFileName": "MMD#Paciente4##130520211233#MedicoSolicitante#N.WXML",
+    "reportFileName": "MMD#Paciente4##130520211233#MedicoSolicitante#N.PDF",
+    "reportReleaseDateTime": "",
+    "operatorEmail": "asd@email.com",
+    "patient": {
+      "name": "Jhon Doe",
+      "gender": "Masculino",
+      "birthDate": "2000-09-09T03:00:00.000+00:00",
+      "height": "172",
+      "weight": "68",
+      "cpf": "18935765074",
+      "rg": "487719955"
+    }
+  }
+]
+```
+
+#### 204 No Content
+
+Caso não sejam encontrados exames com os filtros fornecidos.
+
+Body raw (json)
+``` Exemplo response
+[]
+```
+
+#### 400 Bad Request
+
+Caso algum campo obrigatório esteja faltando ou esteja em um formato incorreto.
+
+Body raw (json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+
+``` Exemplo response
+[
+  {
+  "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 401 Unauthorized
+
+Caso os headers API KEY e/ou API SECRET estejam faltando ou sejam inválidos.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 500 Internal Server Error
+
+Caso ocorra um erro interno no processamento da requisição.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+## GET/exams/:exameUUID/images/file
+
+Download do arquivo de imagem do exame especificado. <br />
+Por ora, o único exame que comporta essa funcionalidade é o ECG Wincardio (tipo de arquivo WXML).
