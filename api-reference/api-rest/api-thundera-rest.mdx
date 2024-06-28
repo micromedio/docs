@@ -204,7 +204,375 @@ Body raw (json)
 ]
 ```
 
+## GET /exams/:examUUID/file
+
+Download do arquivo do exame especificado.
+
+Headers
+
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| base-url                  | https://thundera.com.br/api/                  | Sim         |
+| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
+| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+
+
+Path variables
+
+| Nome                     | Descrição               | Obrigatório |
+| -------------------------|-------------------------|-------------|
+| examUUID                 | UUID do exame           | Sim         |
+
+Exemplo
+
+```curl cURL
+  curl --location --request GET 'https://base-uri/exams/:examUUID/file' \
+  --header 'X-MICROMED-API-KEY: <API Key do Serviço>' \
+  --header 'X-MICROMED-API-SECRET: <API Secret do Serviço>'
+```
+
+Responses
+Headers
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/octet-stream                      | Sim         |
+
+#### 200 Success 
+
+Retorna o arquivo do exame para download.
+
+#### 204 No Content
+
+Caso não seja encontrado o arquivo do exame com os filtros fornecidos.
+
+Body raw (json)
+``` Exemplo response
+[]
+```
+
+#### 400 Bad Request
+
+Caso algum campo obrigatório esteja faltando ou esteja em um formato incorreto.
+
+Body raw (json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+
+``` Exemplo response
+[
+  {
+  "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 401 Unauthorized
+
+Caso os headers API KEY e/ou API SECRET estejam faltando ou sejam inválidos.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 500 Internal Server Error
+
+Caso ocorra um erro interno no processamento da requisição.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
 ## GET/exams/:exameUUID/images/file
 
 Download do arquivo de imagem do exame especificado. <br />
 Por ora, o único exame que comporta essa funcionalidade é o ECG Wincardio (tipo de arquivo WXML).
+
+Headers
+
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| base-url                  | https://thundera.com.br/api/                  | Sim         |
+| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
+| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+
+
+Path variables
+
+| Nome                     | Descrição               | Obrigatório |
+| -------------------------|-------------------------|-------------|
+| examUUID                 | UUID do exame           | Sim         |
+
+Exemplo
+
+```curl cURL
+  curl --location --request GET 'https://base-uri/exams/:examUUID/images/file' \
+  --header 'X-MICROMED-API-KEY: <API Key>' \
+  --header 'X-MICROMED-API-SECRET: <API Secret>'
+```
+
+Responses
+Headers
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/octet-stream                      | Sim         |
+
+
+#### 200 Success 
+
+Retorna o arquivo do exame para download.
+
+#### 204 No Content
+
+Caso não seja encontrado o arquivo do exame com os filtros fornecidos.
+
+Body raw (json)
+``` Exemplo response
+[]
+```
+
+#### 400 Bad Request
+
+Caso algum campo obrigatório esteja faltando ou esteja em um formato incorreto.
+
+Body raw (json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+
+``` Exemplo response
+[
+  {
+  "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 401 Unauthorized
+
+Caso os headers API KEY e/ou API SECRET estejam faltando ou sejam inválidos.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 500 Internal Server Error
+
+Caso ocorra um erro interno no processamento da requisição.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+## GET /exams/:examUUID/reports/file
+
+Download do arquivo PDF do laudo especificado.
+
+Headers
+
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| base-url                  | https://thundera.com.br/api/                  | Sim         |
+| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
+| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+
+
+Path variables
+
+| Nome                     | Descrição               | Obrigatório |
+| -------------------------|-------------------------|-------------|
+| examUUID                 | UUID do exame           | Sim         |
+
+Exemplo
+
+```curl cURL
+  curl --location --request GET 'https://base-uri/exams/:examUUID/reports/file' \
+  --header 'X-MICROMED-API-KEY: <API Key>' \
+  --header 'X-MICROMED-API-SECRET: <API Secret>'
+```
+
+Responses
+Headers
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/pdf                               | Sim         |
+
+#### 200 Success 
+
+Retorna o PDF do arquivo do laudo para download.
+
+#### 204 No Content
+
+Caso não seja encontrado o arquivo do exame com os filtros fornecidos.
+
+Body raw (json)
+``` Exemplo response
+[]
+```
+
+#### 400 Bad Request
+
+Caso algum campo obrigatório esteja faltando ou esteja em um formato incorreto.
+
+Body raw (json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+
+``` Exemplo response
+[
+  {
+  "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 401 Unauthorized
+
+Caso os headers API KEY e/ou API SECRET estejam faltando ou sejam inválidos.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 500 Internal Server Error
+
+Caso ocorra um erro interno no processamento da requisição.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+## GET/remotes
+
+Devolve ao cliente uma lista com os nomes dos pontos remotos, suas UUIDs e com quais centrais estão vinculadas dentro do serviço.
+
+Request <br />
+Headers
+
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| base-url                  | https://thundera.com.br/api/                  | Sim         |
+| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
+| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+
+```curl cURL
+  curl --location --request GET 'https://base-uri/remotes' \
+  --header 'X-MICROMED-API-KEY: <API Key>' \
+  --header 'X-MICROMED-API-SECRET: <API Secret>'
+```
+
+Responses
+Headers
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/json                              | Sim         |
+
+#### 200 Success 
+
+Body raw(json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| remotePoints              |  Vetor contendo a lista dos pontos remotos           | Sim         |
+
+
+Conteúdo ojeto remotePoint (json)
+| Campo                     | Descrição                                                                        | Obrigatório |
+| --------------------------|----------------------------------------------------------------------------------|-------------|
+| name                      | Nome do ponto remoto                                                             | Sim         |
+| uuid                      | UUID do ponto remoto                                                             | Sim         |
+| centralPoints             | Lista que contém informações sobre as centrais cujo ponto remoto está vinculado  | Sim         |
+
+Exemplo
+
+```curl cURL
+  {
+    "remotePoints": [
+      {
+        "name": "NomeDoPonto",
+        "uuid": "dfdbd851-9d6e-4f6b-aa47-cfefd5571ec7",
+        "centralPoints": [
+          {
+            "name": "NomeDaCentral",
+            "uuid": "d24e4de9-de9c-4da3-8e62-2f5b2a079eec",
+          },
+          {
+            "name": "NomeDaOutraCentral",
+            "uuid": "64518fe4-4e27-42c9-a4a2-5fdbe10650dd",
+          }
+        ]
+      },
+      {
+        "name": "NomeDoOutroPonto",
+        "uuid": "1887d355-4515-4bd4-b388-78d927796b81",
+        "centralPoints": [
+          {
+            "name": "NomeDaOutraCentral",
+            "uuid": "64518fe4-4e27-42c9-a4a2-5fdbe10650dd",
+          }
+        ]
+      }
+    ]
+  }
+```
