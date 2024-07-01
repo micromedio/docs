@@ -576,3 +576,220 @@ Exemplo
     ]
   }
 ```
+
+#### 204 No Content
+
+Caso não seja encontrado o arquivo do exame com os filtros fornecidos.
+
+Body raw (json)
+``` Exemplo response
+[]
+```
+
+#### 400 Bad Request
+
+Caso algum campo obrigatório esteja faltando ou esteja em um formato incorreto.
+
+Body raw (json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+
+``` Exemplo response
+[
+  {
+  "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 401 Unauthorized
+
+Caso os headers API KEY e/ou API SECRET estejam faltando ou sejam inválidos.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 500 Internal Server Error
+
+Caso ocorra um erro interno no processamento da requisição.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+
+## PATCH /exams/:examUUID
+
+Endpoint que permite alterar o status do exame identificado pelo UUID.
+
+Request <br />
+Headers
+
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/json                              | Sim         |
+| base-url                  | https://thundera.com.br/api/                  | Sim         |
+| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
+| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+
+```curl cURL
+  curl --location --request GET 'https://base-uri/remotes' \
+  --header 'X-MICROMED-API-KEY: <API Key>' \
+  --header 'X-MICROMED-API-SECRET: <API Secret>'
+```
+
+Responses
+Headers
+| Nome                      | Valor                                         | Obrigatório |
+| --------------------------|-----------------------------------------------|-------------|
+| Content-Type              | application/json                              | Sim         |
+
+#### 200 Success 
+
+Body raw(json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem que indica o sucesso da requisição         | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Status modificado para 'FINALIZADO_API' com sucesso.",
+  }
+]
+```
+
+#### 204 No Content
+
+Caso não seja encontrado o arquivo do exame com os filtros fornecidos.
+
+Body raw (json)
+``` Exemplo response
+[]
+```
+
+#### 400 Bad Request
+
+Caso algum campo obrigatório esteja faltando ou esteja em um formato incorreto.
+
+Body raw (json)
+
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+
+``` Exemplo response
+[
+  {
+  "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 401 Unauthorized
+
+Caso os headers API KEY e/ou API SECRET estejam faltando ou sejam inválidos.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 405 Method not allowed
+
+Caso o status enviado não seja permitido para a alteração.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+#### 500 Internal Server Error
+
+Caso ocorra um erro interno no processamento da requisição.
+
+Body raw (json)
+| Campo                     | Descrição                                            | Obrigatório |
+| --------------------------|------------------------------------------------------|-------------|
+| message                   |  Mensagem com a descrição do erro                    | Sim         |
+
+``` Exemplo response
+[
+  {
+    "message": "Excepteur sed eu deserunt"
+  }
+]
+```
+
+## Apêndice
+ExamStatus - Significados
+
+| Status                         | Significado                                                  |
+| -------------------------------|-------------------------------------------------------------|
+| PRONTO_PARA_ENVIO              | Ponto remoto acabou de receber o exame.                    |
+| ENVIANDO                       | Ponto remoto está enviando o exame para o webservice.                                                           |
+| ERRO_NO_ENVIO                  | Ponto remoto não conseguiu fazer o envio para o webservice.                                                           |
+| ENVIO_CONCLUIDO                | Quando o webservice recebeu o exame e salvou no servidor.                                                            |
+| DISPONIVEL_PARA_LAUDO          | Exame já está no servidor e nenhum laudador abriu o exame para laudar ainda.                    |
+| EM_ANALISE                     | Quando algum laudador abriu o exame pelo menos 1x.                                                           |
+| LAUDO_DISPONIVEL               | Quando o exame já foi laudado.                                                           |
+| LAUDO_REMOTO                   | Quando o laudo já está no ponto remoto (fluxo completo).                                                           |
+| REPETIR_EXAME                  | Quando é solicitado repetição do exame.                                                            |
+| LAUDO_INTEGRACAO               | (Apenas para serviços com integração habilitada) Quando o laudo foi enviado via integração e não deve ser enviado de volta para o ponto remoto.
+| LAUDO_ENVIADO_PARA_INTEGRACAO  | (Apenas para serviços com integração habilitada) Quando o ponto remoto "toma ciência" de que o laudo foi enviado só para integração e não vai retornar ao ponto remoto. |
+| BAIXANDO_PARA_CENTRAL          | Status transitório, aplicando quando um exame está em processo de download para o Thundera Central.   |
+| ERRO_BAIXANDO                  | Status apresentado quando há algum tipo de erro ao realizar o download do exame.EXAME_DELETADO_CENTRAL Este status não é mais utilizado pois hoje há uma coluna que indica quando um exame foi deletado. O seu último status é mantido, e desta forma temos uma exclusão lógica. Se mantém devido a legado do sistema. |
+| REPETIR_EXAME_TRANSMITIDO      | Status transitório, ocorre quando é solicitada a repetição do exame e este dado ainda não foi recebido pelo ponto remoto.|
+| LAUDO_AGUARDANDO_LIBERACAO     | Utilizado em serviços que contam com um médico revisor. Os laudos somente são enviados após a liberação. Este status ocorre quando o laudo foi emitido mas ainda não foi liberado pelo revisor. |
+| ERRO_DE_DESCRIPTOGRAFIA        | Houve erro ao descriptografar os dados do exame no momento de geração do laudo.  |
+| ERRO_DE_DESCRIPTOGRAFIA_AVISADO| O ponto remoto correspondente foi avisado sobre o erro de descriptografia que ocorreu no exame.  |
+| EXAME_BAIXADO_API              | Status que indica se o exame foi baixado por API                                        |
+| LAUDO_BAIXADO_API              |Status que indica se o laudo foi baixado por API                                         |
+| FINALIZADO_API                 |Status que indica que o laudo já foi efetuado, e o processo finalizado.                   |
+
+ 
+ 
+
+ 
+ 
+ 
