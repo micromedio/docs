@@ -410,11 +410,12 @@ Download do arquivo PDF do laudo especificado.
 
 Headers
 
-| Nome                      | Valor                                         | Obrigatório |
-| --------------------------|-----------------------------------------------|-------------|
-| base-url                  | https://thundera.com.br/api/                  | Sim         |
-| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
-| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+| Nome                      | Valor                                                         | Obrigatório |
+| --------------------------|---------------------------------------------------------------|-------------|
+| Endpoint                  | https://thundera.com.br/api/exams/:examUUID/reports/file      | Sim         |
+| X-MICROMED-API-KEY        | UUID do Serviço                                               | Sim         |
+| X-MICROMED-API-SECRET     | Chave de API do Serviço                                       | Sim         |
+
 
 
 Path variables
@@ -426,9 +427,9 @@ Path variables
 Exemplo
 
 ```curl cURL
-  curl --location --request GET 'https://base-uri/exams/:examUUID/reports/file' \
-  --header 'X-MICROMED-API-KEY: <API Key>' \
-  --header 'X-MICROMED-API-SECRET: <API Secret>'
+  curl --location --request GET 'https://thundera.com.br/api/exams/:examUUID/reports/file' \
+  --header 'X-MICROMED-API-KEY: <uuid do serviço>' \
+  --header 'X-MICROMED-API-SECRET: <chave de api do serviço>'
 ```
 
 Responses
@@ -512,14 +513,14 @@ Headers
 
 | Nome                      | Valor                                         | Obrigatório |
 | --------------------------|-----------------------------------------------|-------------|
-| base-url                  | https://thundera.com.br/api/                  | Sim         |
-| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
-| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+| Endpoint                  | https://thundera.com.br/api/remotes           | Sim         |
+| X-MICROMED-API-KEY        | UUID do Serviço                               | Sim         |
+| X-MICROMED-API-SECRET     | Chave de API do Serviço                       | Sim         |
 
 ```curl cURL
-  curl --location --request GET 'https://base-uri/remotes' \
-  --header 'X-MICROMED-API-KEY: <API Key>' \
-  --header 'X-MICROMED-API-SECRET: <API Secret>'
+  curl --location --request GET 'https://thundera.com.br/api/remotes' \
+  --header 'X-MICROMED-API-KEY: <uuid do serviço>' \
+  --header 'X-MICROMED-API-SECRET: <chave de api do serviço>'
 ```
 
 Responses
