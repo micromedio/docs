@@ -43,35 +43,36 @@ Request
 
 Headers
 
-| Nome                      | Valor                                         | Obrigatório |
-| --------------------------|-----------------------------------------------|-------------|
-| Content-Type              | application/json                              | Sim         |
-| base-url                  | https://thundera.com.br/api/                  | Sim         |
-| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
-| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
+| Nome                      | Valor                                                         | Obrigatório |
+| --------------------------|---------------------------------------------------------------|-------------|
+| Content-Type              | application/json                                              | Sim         |
+| Endpoint                  | https://thundera.com.br/api/exams                             | Sim         |
+| X-MICROMED-API-KEY        | UUID do Serviço                                               | Sim         |
+| X-MICROMED-API-SECRET     | Chave de API do Serviço                                       | Sim         |
 
 
 Body raw(json)
 
 | Campo                     | Descrição                                           | Obrigatório |
 | --------------------------|-----------------------------------------------------|-------------|
-| examTypes                 | Ecg Imagem, Mapa Hyperview, Ecg Wincardio           | Não         |
+| remoteUUID                | UUID do Remoto                                      | Não         |
+| examTypes                 | Ecg Imagem, Mapa Hyperview, ECG Wincardio           | Sim         |
 | examStatus                | DISPONIVEL_PARA_LAUDO, EM_ANALISE, LAUDO_DISPONIVEL | Não         |
 | initialDate               | 2024-06-20T12:25:46-03:00                           | Sim         |
 | endDate                   | 2024-07-01T22:25:46-03:00                           | Sim         |
 | patientName               | NOME DO PACIENTE                                    | Não         |
-| centralUUID               | 55ff2a83-111e-3010-b046-420c8a7fb106                | Não         |
+| centralUUID               | UUID da Central                                     | Não         |
 
 
 Exemplo
 
 ```curl cURL
-curl --location --request POST 'https://base-url/exams' \
-  --header 'X-MICROMED-API-KEY: <API Key>' \
-  --header 'X-MICROMED-API-SECRET: <API Secret>' \
+curl --location --request POST 'https://thundera.com.br/api/exams ' \
+  --header 'X-MICROMED-API-KEY: <uuid do serviço >' \
+  --header 'X-MICROMED-API-SECRET: <chave de api do serviço >' \
   --data-raw '{
     "remoteUUID": "dfdbd851-9d6e-4f6a-aa47-cfefd5571ecr7",
-    "examTypes": ["Ecg Wincardio"],
+    "examTypes": ["ECG Wincardio"],
     "examStatus": ["LAUDO_REMOTO"],
     "initialDate": "2021-08-01T15:25:46-03:00",
     "endDate": "2021-08-10T15:25:46-03:00",
@@ -204,18 +205,22 @@ Body raw (json)
 ]
 ```
 
+#### Vídeo de configuração do método
+<video src="https://uploads.linear.app/e0f31de4-31a1-4189-9a99-aa26a0fcbbab/db72e4b6-23de-40b1-8c82-935335c87ba3/6caf4f15-d4e7-4aec-8eb1-d86c2d98f279" controls> </video>
+
+
+
 ## GET /exams/:examUUID/file
 
 Download do arquivo do exame especificado.
 
 Headers
 
-| Nome                      | Valor                                         | Obrigatório |
-| --------------------------|-----------------------------------------------|-------------|
-| base-url                  | https://thundera.com.br/api/                  | Sim         |
-| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
-| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
-
+| Nome                      | Valor                                                         | Obrigatório |
+| --------------------------|---------------------------------------------------------------|-------------|
+| Endpoint                  | https://thundera.com.br/api/exams/:examUUID/file              | Sim         |
+| X-MICROMED-API-KEY        | UUID do Serviço                                               | Sim         |
+| X-MICROMED-API-SECRET     | Chave de API do Serviço                                       | Sim         |
 
 Path variables
 
@@ -226,9 +231,9 @@ Path variables
 Exemplo
 
 ```curl cURL
-  curl --location --request GET 'https://base-uri/exams/:examUUID/file' \
-  --header 'X-MICROMED-API-KEY: <API Key do Serviço>' \
-  --header 'X-MICROMED-API-SECRET: <API Secret do Serviço>'
+  curl --location --request GET 'https://thundera.com.br/api/exams/:examUUID/file' \
+  --header 'X-MICROMED-API-KEY: <uuid do serviço>' \
+  --header 'X-MICROMED-API-SECRET: <chave de api do serviço>'
 ```
 
 Responses
@@ -303,6 +308,11 @@ Body raw (json)
 ]
 ```
 
+#### Vídeo de configuração do método
+<video src="https://uploads.linear.app/e0f31de4-31a1-4189-9a99-aa26a0fcbbab/798dfdab-730b-405a-aeba-d1bed60834f4/667d4d82-91b8-47ad-9463-1e3b086a28a1" controls> </video>
+
+
+
 ## GET/exams/:exameUUID/images/file
 
 Download do arquivo de imagem do exame especificado. <br />
@@ -310,12 +320,11 @@ Por ora, o único exame que comporta essa funcionalidade é o ECG Wincardio (tip
 
 Headers
 
-| Nome                      | Valor                                         | Obrigatório |
-| --------------------------|-----------------------------------------------|-------------|
-| base-url                  | https://thundera.com.br/api/                  | Sim         |
-| X-MICROMED-API-KEY        | 189f62d3-2eb8-469d-9cab-eb0d7dd4c5d4          | Sim         |
-| X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
-
+| Nome                      | Valor                                                         | Obrigatório |
+| --------------------------|---------------------------------------------------------------|-------------|
+| Endpoint                  | https://thundera.com.br/api/exams/:examUUID/images/file       | Sim         |
+| X-MICROMED-API-KEY        | UUID do Serviço                                               | Sim         |
+| X-MICROMED-API-SECRET     | Chave de API do Serviço                                       | Sim         |
 
 Path variables
 
@@ -326,9 +335,9 @@ Path variables
 Exemplo
 
 ```curl cURL
-  curl --location --request GET 'https://base-uri/exams/:examUUID/images/file' \
-  --header 'X-MICROMED-API-KEY: <API Key>' \
-  --header 'X-MICROMED-API-SECRET: <API Secret>'
+  curl --location --request GET 'https://thundera.com.br/api/exams/:examUUID/images/file ' \
+  --header 'X-MICROMED-API-KEY: <uuid do serviço>' \
+  --header 'X-MICROMED-API-SECRET: <chave de api do serviço>'
 ```
 
 Responses
@@ -504,6 +513,10 @@ Body raw (json)
 ]
 ```
 
+#### Vídeo de configuração do método
+<video src="https://uploads.linear.app/e0f31de4-31a1-4189-9a99-aa26a0fcbbab/a6928a3b-7942-49ef-bc90-51e574f883f3/921a588a-dae0-4147-8c73-656b7c00d04c" controls> </video>
+
+
 ## GET/remotes
 
 Devolve ao cliente uma lista com os nomes dos pontos remotos, suas UUIDs e com quais centrais estão vinculadas dentro do serviço.
@@ -640,6 +653,9 @@ Body raw (json)
 ]
 ```
 
+#### Vídeo de configuração do método
+<video src="https://uploads.linear.app/e0f31de4-31a1-4189-9a99-aa26a0fcbbab/17a52f7d-f7af-4fc8-aeea-19f75633efe1/2aea8237-beee-40df-b52f-2af309e2bfbc" controls> </video>
+
 
 ## PATCH /exams/:examUUID
 
@@ -656,7 +672,7 @@ Headers
 | X-MICROMED-API-SECRET     | OI5WGIfmG6G0xKbrAkMia55SLHcStXv1C7j+vCwJJrk=  | Sim         |
 
 ```curl cURL
-  curl --location --request GET 'https://base-uri/remotes' \
+  curl --location --request POST 'https://base-uri/exams' \
   --header 'X-MICROMED-API-KEY: <API Key>' \
   --header 'X-MICROMED-API-SECRET: <API Secret>'
 ```
