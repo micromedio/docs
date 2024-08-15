@@ -39,6 +39,10 @@
     }
   ],
   "navigation": [
+    {
+        "group": "Thundera API",
+        "pages": ["api-thundera-rest"]
+    }    
   ],
   "footerSocials": {
     "instagram": "https://www.instagram.com/micromedhealth",
