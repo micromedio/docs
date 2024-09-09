@@ -1,0 +1,127 @@
+---
+title: 'Envio automático do exame de Integração pelo Thundera Remoto.'
+description: 'Configuração do envio automático do exame de Integração.'
+---
+
+<Note>
+  Versão do documento: 1.0.0 <br />
+  Data: 09/09/2024
+</Note>
+
+# Bem vindo
+
+Esta é a documentação de configuração do envio automático do exame de Integração. Com ela você poderá configurar o envio automático dos exames de Integração.
+Na versão 1.0.0 do Thundera Remoto foi inserido a possibilidade de automatizar o envio dos exames da modalidade Integração. Esta automatização será importante para os clientes que possuem variações de modality.
+
+# Configuração
+
+1 - Para você fazer a configuração, primeiramente será necessário atualizar o Thundera Remoto para esta versão 1.0.0.
+
+2 - Crie o um arquivo chamado modality-from-to.json na pasta onde o Thundera Remoto foi instalado, por padrão esta pasta é C:\Program Files (x86)\Micromed\Thundera Remoto.
+
+3 - Após criar o arquivo, abra-o e configuere com a seguinte estrutura:
+
+```Exemplo EXEMPLO
+{
+
+ "map": [
+    { "from": ["Teste Ergométrico*", "Left Leg DSA", "Ergometria"], "to": "Teste Ergométrico" },
+    { "from": ["Audio*", "Teste de Audiometria", "Audiometry"], "to": "Audiometria" }
+  ]
+}
+```
+
+<Note>
+Observe que: 
+ - Do lado FROM da linha são todas as possíveis variações de modality que o exame poderá vindo do Servidor de Worklist.
+ - Do lado TO é o tipo de modalidade liberada para o ponto remoto. 
+</Note>
+
+4 - Salve e feche o arquivo.
+
+Agora o Thundera Remoto está configurado para enviar os exames de Integração automaticamente.
+
+# Os Exames
+
+Se você configurou o Thundera Remoto até o passo anterior, isso significa que o Thundera Remoto está aguardando o exame que vem de outro sistema para fazer o fluxo de envio de exame.
+
+O sistema que gerador do exame deverá exportar o exame na pasta C:\Users\Public\Micromed\Telemedicina\Exames.
+
+O exame deverá ser um arquivo compactado no formato tipo .ITR.
+  Dentro deste arquivo deverá ter o exame podendo ser em JPEG, JPG, PNG ou PDF.
+  Dentro deste arquivo deverá conter além dos exames citados acima, o arquivo "exame.xml".
+
+  ![arquivo ITR](\api-reference\api-thundera-remoto\image_1.jpg)
+
+
+### Arquivo "exame.xml"
+
+Esse arquivo será usado para enviar as informações gerais do exame. 
+Especificação dos campos:
+
+
+```
+ - <sexo> esperamos as opções "Masculino" ou "Feminino";
+ - <datanascimento>  data no formato "DD/MM/YYYY";
+ - <dataexame> data no formato "YYYY-MM-DD HH:mm:ss";
+```
+
+Abaixo um exemplo da estrutura:
+```Exemplo exame.xlm
+<?xml version="1.0" encoding="UTF-8"?>
+<envelope>
+  <exame>
+    <paciente>Paciente Anônimo Teste</paciente>
+    <sexo>Masculino</sexo>
+    <datanascimento>01/01/1907</datanascimento>
+    <emergencia>false</emergencia>
+    <peso>70</peso>
+    <altura>170</altura>
+    <imc>24,22</imc>
+    <idade>117</idade>
+    <cpf>000.000.000-00</cpf>
+    <rg></rg>
+    <registroclinico></registroclinico>
+    <convenio></convenio>
+    <accessionnumber>1515</accessionnumber>
+    <dataexame>2024-09-09 16:58:26</dataexame>
+    <solicitante>
+      <nome>MÉDICO SOLICITANTE</nome>
+      <crm>6969</crm>
+    </solicitante>
+    <indicacaoclinica></indicacaoclinica>
+    <medicamentosemuso></medicamentosemuso>
+    <observacoes></observacoes>
+    <modalidade>
+      <nome>Audiometria</nome>
+    </modalidade>
+    <arquivos class="java.util.ArrayList">
+      <arquivo>872457441900_1.pdf</arquivo>
+    </arquivos>
+  </exame>
+</envelope>
+```
+
+<Note>
+Ponto importante:
+  - Na tag Modalidade deverá vir com a modality ou a variação de modality do servidor de Worklist. Ela deverá ser a mesma que cadastramos no arquivo modality-from-to.json.
+</Note>
+
+
+## Vídeo
+<iframe width="580" height="335" src="https://www.youtube.com/embed/KGQ5_Awvncw?si=hIjAhaIn9dVliVtw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="true"></iframe>
+
+
+
+## Possíveis erros
+
+Caso alguma informação do arquivo modality-from-to.json esteja incorreta, o exame será exibido com erro na tela do Thundera Remoto, com o seguinte status: "Erro de modalidade (Extensão: .itr)";
+ 
+ ![arquivo ITR](\api-reference\api-thundera-remoto\image_2.jpg)
+
+
+Para resolver, configure corretamente o arquivo modality-from-to.json com a modalidade que foi exportada no exame.
+ ![arquivo ITR](\api-reference\api-thundera-remoto\image_3.jpg)
+ 
+
+
